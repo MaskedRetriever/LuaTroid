@@ -2,6 +2,8 @@
 player = {
 	x=100,
 	y=384,
+	MapMark1X=0,
+	MapMark1Y=0,
 	a=0,
 	vy=0,
 	facingleft=false,
@@ -16,6 +18,13 @@ function player:move(dx)
 	if self.a>100 then 
 		self.a = 0	
 	end
+end
+function player:groundcheck(mapx,mapy)
+	LocalX = self.x - mapx
+	LocalY = self.y - mapy
+	self.MapMark1X = math.floor(LocalX/32-0.5)
+	self.MapMark1Y = math.floor(LocalY/32)
+
 end
 function player:render()
 	local Frame = math.floor(10*self.a/100)
@@ -32,6 +41,11 @@ function player:render()
 			love.graphics.draw(virajump,self.x,self.y,0,1,1)
 		end
 	end
+	
+	--Draw the MapMarker
+	mmx = self.MapMark1X
+	mmy = self.MapMark1Y+1
+	love.graphics.line(mmx*32,mmy*32,(mmx+1)*32,mmy*32,(mmx+1)*32,(mmy+1)*32,mmx*32,(mmy+1)*32,mmx*32,mmy*32)
 end
 function player:update(dt)
 	self.y=self.y+self.vy
@@ -43,7 +57,7 @@ function player:update(dt)
 	if self.y>384 then
 		self.vy = 0
 	end
-
+	
 	
 end
 

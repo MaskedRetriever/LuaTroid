@@ -15,6 +15,10 @@ function love.load()
 	--love.audio.play(music)
 	--love.audio.setVolume(1.5)	
 
+
+
+
+
 	
 	TilePicking = false
 	
@@ -114,6 +118,7 @@ end
 function love.update(dt)
 		
 	player:update(dt)
+	player:groundcheck(map.x,map.y)
 	
 	if(love.keyboard.isDown("a")) then
 		if(player.x<100) then

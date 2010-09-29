@@ -52,12 +52,10 @@ function map:picktile(xc,yc)
 	self.SelectedTile = XSel + 15*YSel
 end
 
---Map is saved to map.txt
+--Map is saved to mapdata.lua
 function map:save()
-	--local f = love.filesystem.newFile("map.txt")
 	local f = assert(io.open("mapdata.lua", "w"))
 
-	--f:open("w")
 	f:write("mapfile = {}")
 	f:write("mapfile[1] = {\n")
 	for ytile = 1, #self.mapdata do
@@ -68,7 +66,6 @@ function map:save()
 		f:write("},\n")
 	end
 	f:write("}")
-	
 	f:close()
 end
 
