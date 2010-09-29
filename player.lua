@@ -6,6 +6,7 @@ player = {
 	MapMark1Y=0,
 	a=0,
 	vy=0,
+	onground=true,
 	facingleft=false,
 }
 function player:jump()
@@ -22,11 +23,11 @@ end
 function player:groundcheck(mapx,mapy)
 	LocalX = self.x - mapx
 	LocalY = self.y - mapy
-	self.MapMark1X = math.floor(LocalX/32-0.5)
+	self.MapMark1X = math.floor(LocalX/32+0.5)
 	self.MapMark1Y = math.floor(LocalY/32)
 
 end
-function player:render()
+function player:render(mapx, mapy)
 	local Frame = math.floor(10*self.a/100)
 	if self.facingleft then
 		if self.y > 383 then
@@ -42,10 +43,7 @@ function player:render()
 		end
 	end
 	
-	--Draw the MapMarker
-	mmx = self.MapMark1X
-	mmy = self.MapMark1Y+1
-	love.graphics.line(mmx*32,mmy*32,(mmx+1)*32,mmy*32,(mmx+1)*32,(mmy+1)*32,mmx*32,(mmy+1)*32,mmx*32,mmy*32)
+
 end
 function player:update(dt)
 	self.y=self.y+self.vy

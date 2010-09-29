@@ -5,7 +5,7 @@ require("map.lua")
 require("player.lua")
 
 function love.load()
-	
+	Debug = false
 
 	
 	-- The amazing music.
@@ -74,9 +74,26 @@ function love.draw()
 		love.graphics.draw(TilesImage)
 	else
 		map:render()
-		player:render()
+		player:render(map.x,map.y)
 	end
 	
+	if Debug then
+		love.graphics.print("TX = " .. player.MapMark1X, 0, 15)
+		love.graphics.print("TY = " .. player.MapMark1Y, 0, 30)
+		
+		--Draw the MapMarker
+		mmx = player.MapMark1X
+		mmy = player.MapMark1Y+1
+		if(player.onground) then
+			love.graphics.line(mmx*32+map.x,mmy*32,(mmx+1)*32+map.x,(mmy+1)*32)
+		end
+		love.graphics.line(mmx*32+map.x,mmy*32,
+						(mmx+1)*32+map.x,mmy*32,
+						(mmx+1)*32+map.x,(mmy+1)*32,
+						mmx*32+map.x,(mmy+1)*32,
+						mmx*32+map.x,mmy*32)
+	
+	end
 end
 
 function love.keypressed(k)
@@ -108,6 +125,11 @@ function love.keypressed(k)
 	if k == "," then
 		map:load()
 	end
+	
+	if k == "1" then
+		Debug = not Debug
+	end
+	
 end
 
 function love.mousepressed(x, y, button)
@@ -119,6 +141,9 @@ function love.update(dt)
 		
 	player:update(dt)
 	player:groundcheck(map.x,map.y)
+	
+	player.onground = map:groundtilecheck(player.MapMark1X,player.MapMark1Y)
+	
 	
 	if(love.keyboard.isDown("a")) then
 		if(player.x<100) then

@@ -75,6 +75,17 @@ function map:load()
 	self:generate()
 end
 
+function map:groundtilecheck(tx,ty)
+	if(self.mapdata[ty][tx] == 1) then
+		return true
+	else
+		return false
+	end
+		
+
+end
+
+
 function map:render()
 	love.graphics.draw(MapImage,self.x,self.y)
 end
