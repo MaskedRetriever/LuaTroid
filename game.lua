@@ -5,7 +5,7 @@ require("map.lua")
 require("player.lua")
 
 function love.load()
-	Debug = false
+	Debug = true
 
 	
 	-- The amazing music.
@@ -38,7 +38,7 @@ function love.load()
 	--load and Image-ify the map
 	map:load()
 	map:generate()
-	
+	player:groundcheck(map.x,map.y)
 
 	--Create the player character
 	virawalk = {}
@@ -80,10 +80,12 @@ function love.draw()
 	if Debug then
 		love.graphics.print("TX = " .. player.MapMark1X, 0, 15)
 		love.graphics.print("TY = " .. player.MapMark1Y, 0, 30)
+		love.graphics.print("Map[ty][tx] = " .. map.mapdata[player.MapMark1Y][player.MapMark1X], 0, 45)
+		love.graphics.print("FPS = " .. love.timer.getFPS(), 0, 60)
 		
 		--Draw the MapMarker
 		mmx = player.MapMark1X
-		mmy = player.MapMark1Y+1
+		mmy = player.MapMark1Y-1
 		if(player.onground) then
 			love.graphics.line(mmx*32+map.x,mmy*32,(mmx+1)*32+map.x,(mmy+1)*32)
 		end
@@ -147,26 +149,26 @@ function love.update(dt)
 	
 	if(love.keyboard.isDown("a")) then
 		if(player.x<100) then
-			map.x=map.x+.2
-			player.a = player.a+.5
+			map.x=map.x+200*dt
+			player.a = player.a+0.5
 			if player.a>100 then 
 				player.a = 0	
 			end
 		else
-			player:move(-.2)
+			player:move(-200*dt)
 			player.facingleft = false
 
 		end
 	end
 	if(love.keyboard.isDown("d")) then
 		if(player.x>540) then
-			map.x=map.x-.2		
-			player.a = player.a+.5
+			map.x=map.x-200*dt		
+			player.a = player.a+0.5
 			if player.a>100 then 
 				player.a = 0	
 			end
 		else
-			player:move(.2)
+			player:move(200*dt)
 			player.facingleft = true
 		end
 	end

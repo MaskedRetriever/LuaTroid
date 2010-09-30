@@ -76,7 +76,9 @@ function map:load()
 end
 
 function map:groundtilecheck(tx,ty)
-	if(self.mapdata[ty][tx] == 1) then
+	if(not tx) then return false end
+	if(not ty) then return false end
+	if(self.mapdata[ty][tx] == 0) then
 		return true
 	else
 		return false

@@ -11,7 +11,7 @@ player = {
 }
 function player:jump()
 	self.jumping=false
-	self.vy=-0.2
+	self.vy=-0.8
 end
 function player:move(dx)
 	self.x = self.x + dx;
@@ -24,7 +24,7 @@ function player:groundcheck(mapx,mapy)
 	LocalX = self.x - mapx
 	LocalY = self.y - mapy
 	self.MapMark1X = math.floor(LocalX/32+0.5)
-	self.MapMark1Y = math.floor(LocalY/32)
+	self.MapMark1Y = math.floor(LocalY/32)+2  --Get player's feet rather than head
 
 end
 function player:render(mapx, mapy)
@@ -49,7 +49,7 @@ function player:update(dt)
 	self.y=self.y+self.vy
 
 	if self.y<384 then
-		self.vy = self.vy+dt*.4
+		self.vy = self.vy+dt*1.4
 	end
 	
 	if self.y>384 then
