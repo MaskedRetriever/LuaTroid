@@ -46,7 +46,7 @@ function player:render(mapx, mapy)
 
 end
 function player:update(dt)
-	self.y=self.y+self.vy
+	self.y=self.y+self.vy*dt*400
 
 	if self.y<384 then
 		self.vy = self.vy+dt*1.4

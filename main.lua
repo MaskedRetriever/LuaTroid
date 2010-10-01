@@ -9,7 +9,7 @@ function love.load()
 	music:setLooping(true)
 	music:setPitch(1)
 	love.audio.play(music)
-	love.audio.setVolume(1.0)	
+	love.audio.setVolume(0.1)	
 
 	Slides = {}
 	
