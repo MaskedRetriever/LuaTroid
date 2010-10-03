@@ -10,8 +10,9 @@ player = {
 	facingleft=false,
 }
 function player:jump()
-	self.jumping=false
-	self.vy=-0.8
+	if (self.onground) then
+		self.vy=-0.8
+	end
 end
 function player:move(dx)
 	self.x = self.x + dx;

@@ -142,8 +142,7 @@ end
 function love.update(dt)
 		
 	player:update(dt)
-	player:groundcheck(map.x,map.y)
-	
+	player:groundcheck(map.x,map.y)	
 	player.onground = map:groundtilecheck(player.MapMark1X,player.MapMark1Y)
 	
 	

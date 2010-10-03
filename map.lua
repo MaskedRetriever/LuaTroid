@@ -54,8 +54,9 @@ end
 
 --Map is saved to mapdata.lua
 function map:save()
-	local f = assert(io.open("mapdata.lua", "w"))
-
+	f = love.filesystem.newFile("mapdata.lua")
+	f:open('w')
+	
 	f:write("mapfile = {}")
 	f:write("mapfile[1] = {\n")
 	for ytile = 1, #self.mapdata do
